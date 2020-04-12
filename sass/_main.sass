@@ -1,0 +1,164 @@
+main
+    height: calc(100vh - 70px)
+    background-color: #eeeffe
+    color: #024059
+    h1
+        height: 50px
+        width: 100vw
+        margin: 10px 0
+        display: inline-block
+        line-height: 50px
+        text-align: center
+    .calendar
+        position: relative
+        width: 70vw
+        margin: 10px auto
+        .month
+            position: relative
+            height: 40px
+            padding: 10px 15px
+            margin-bottom: 10px
+            border-radius: 10px
+            background-color: #4951F2
+            color: white
+            span
+                position: absolute
+                bottom: 5px
+                right: 20px
+                font-size: 12px
+        .fa-arrow-left
+            position: absolute
+            top: 0
+            left: -30px
+            height: 100%
+            line-height: 40px
+            font-size: 22px
+            color: #9297f7
+        .fa-arrow-right
+            position: absolute
+            top: 0
+            right: -30px
+            height: 100%
+            line-height: 40px
+            font-size: 22px
+            color: #9297f7
+    .listDays
+        height: 60vh
+        overflow: scroll
+        li
+            position: relative
+            height: 30px
+            width: 90%
+            margin: 10px auto
+            padding: 5px 10px
+            border-radius: 5px
+            list-style: none
+            background-color: #9297f7
+            color: white
+            line-height: 20px
+            &::after
+               content: '' 
+               position: absolute
+               top: 5px
+               right: 20px
+               display: inline-block
+               height: 20px
+               width: 20px
+               border-radius: 50px
+               background-color: white
+
+@media (min-width: 375px) and (orientation: portrait)
+    main
+        .listDays
+            height: 67vh
+
+
+@media (min-width: 411px) and (orientation: portrait)
+    main
+        .calendar
+            .month
+               height: 50px 
+               line-height: 30px
+            .fa-arrow-left
+                left: -35px
+                font-size: 28px
+            .fa-arrow-right
+                right: -35px
+                font-size: 28px
+        .listDays
+            height: 69vh
+            li
+                height: 40px
+                border-radius: 8px
+                &::after
+                    top: 8px
+                    height: 22px
+                    width: 22px
+
+@media (min-width: 768px) and (orientation: portrait)
+    main
+        .calendar
+            .month
+               height: 60px 
+               line-height: 40px
+               font-size: 28px
+            .fa-arrow-left
+                left: -60px
+                line-height: 55px
+                font-size: 45px
+            .fa-arrow-right
+                right: -60px
+                line-height: 55px
+                font-size: 45px
+        .listDays
+            li
+                height: 60px
+                border-radius: 8px
+                font-size: 28px
+                line-height: 50px
+                &::after
+                    top: 12px
+                    height: 30px
+                    width: 30px
+
+@media (min-width: 533px) and (orientation: landscape)
+    main
+        .listDays
+            height: 25vh
+            
+@media (min-width: 640px) and (orientation: landscape)
+    main
+        .listDays
+            height: 35vh
+@media (min-width: 667px) and (orientation: landscape)
+    main
+        .listDays
+            height: 45vh
+
+@media (min-width: 731px) and (orientation: landscape)
+    main
+        .listDays
+            height: 50vh
+            
+@media (min-width: 812px) and (orientation: landscape)
+    main
+        .listDays
+            height: 32vh
+
+@media (min-width: 823px) and (orientation: landscape)
+    main
+        .listDays
+            height: 41vh
+
+@media (min-width: 1024px) and (orientation: landscape)
+    main
+        .listDays
+            height: 66vh
+            li
+                height: 40px
+                border-radius: 8px
+                font-size: 18px
+                line-height: 30px
+
+@media (min-width: 1100px)
+    main
