@@ -1,16 +1,16 @@
-header {
-  display: none;
-}
-
 nav {
   position: absolute;
   bottom: 0;
   right: 0;
-  left: 0;
   height: 70px;
+  width: 100vw;
   padding: 10px;
   background-color: #0477BF;
   color: white;
+}
+
+nav .fa-cog {
+  display: none;
 }
 
 nav ul {
@@ -67,6 +67,11 @@ nav ul span {
   nav ul li {
     font-size: 32px;
   }
+  nav ul li .listHabit li {
+    height: 40px;
+    width: 50%;
+    line-height: 15px;
+  }
   nav ul span {
     top: 55px;
     font-size: 22px;
@@ -86,9 +91,104 @@ nav ul span {
   }
 }
 
+@media (min-width: 640px) and (orientation: landscape) {
+  nav ul li .listHabit li {
+    height: 30px;
+    width: 50%;
+  }
+}
+
+@media (min-width: 1100px) {
+  nav {
+    bottom: 590px;
+    right: 170px;
+    width: 80px;
+    height: 60px;
+    padding: 10px;
+    z-index: 1;
+    border-radius: 30px;
+    -webkit-transition: all .5s ease;
+    transition: all .5s ease;
+  }
+  nav .fa-cog {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 30px;
+    width: 100%;
+    display: block;
+    text-align: center;
+    font-size: 26px;
+    line-height: calc(100% + 35px);
+    -webkit-transition: .5s ease;
+    transition: .5s ease;
+  }
+  nav ul {
+    display: none;
+    -webkit-transition: .5s ease;
+    transition: .5s ease;
+  }
+  nav ul li {
+    padding: 0;
+    font-size: 22px;
+  }
+  nav ul li .listHabit {
+    display: none;
+  }
+  nav ul li:hover {
+    color: #024059;
+    cursor: pointer;
+  }
+  nav ul span {
+    top: 30px;
+    left: 0;
+    font-size: 12px;
+    opacity: 0;
+  }
+  nav:hover {
+    width: 320px;
+  }
+  nav:hover .fa-cog {
+    display: none;
+  }
+  nav:hover ul {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  nav:hover ul span {
+    -webkit-animation: growSpan 1s linear 1 forwards;
+            animation: growSpan 1s linear 1 forwards;
+  }
+}
+
+@-webkit-keyframes growSpan {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes growSpan {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 main {
+  position: relative;
   height: calc(100vh - 70px);
-  background-color: #eeeffe;
   color: #024059;
 }
 
@@ -105,6 +205,18 @@ main .calendar {
   position: relative;
   width: 70vw;
   margin: 10px auto;
+}
+
+main .calendar .January {
+  display: block;
+}
+
+main .calendar .February {
+  display: none;
+}
+
+main .calendar .March {
+  display: none;
 }
 
 main .calendar .month {
@@ -131,7 +243,7 @@ main .calendar .fa-arrow-left {
   height: 100%;
   line-height: 40px;
   font-size: 22px;
-  color: #9297f7;
+  color: #4951F2;
 }
 
 main .calendar .fa-arrow-right {
@@ -141,12 +253,26 @@ main .calendar .fa-arrow-right {
   height: 100%;
   line-height: 40px;
   font-size: 22px;
-  color: #9297f7;
+  color: #4951F2;
 }
 
 main .listDays {
   height: 60vh;
-  overflow: scroll;
+  overflow: auto;
+}
+
+main .listDays::-webkit-scrollbar {
+  width: 6px;
+}
+
+main .listDays::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+          box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+main .listDays::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
 }
 
 main .listDays li {
@@ -172,6 +298,139 @@ main .listDays li::after {
   width: 20px;
   border-radius: 50px;
   background-color: white;
+}
+
+main .addHabit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  padding: 10px;
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: #4951F2;
+  color: white;
+}
+
+main .addHabit i {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 30px;
+  color: white;
+}
+
+main .addHabit h2 {
+  display: inline-block;
+  width: 90vw;
+  margin: 0 10px 20px;
+  text-align: center;
+}
+
+main .addHabit form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+main .addHabit form input {
+  width: 75vw;
+  border: 2px solid #aaa;
+  border-radius: 4px;
+  margin: 8px auto;
+  outline: none;
+  padding: 8px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+main .addHabit form input:focus {
+  border-color: #024059;
+  -webkit-box-shadow: 0 0 32px 0 #024059;
+          box-shadow: 0 0 32px 0 #024059;
+}
+
+main .addHabit form button {
+  width: 45vw;
+  margin: 20px auto;
+  display: block;
+  padding: 15px 0;
+  border: none;
+  border-radius: 50px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: "Roboto", sans-serif;
+  color: #fff;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  outline: 0;
+  background-color: #024059;
+}
+
+main .deleteHabit {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  padding: 10px;
+  display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: #4951F2;
+  color: white;
+}
+
+main .deleteHabit i {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 30px;
+  color: white;
+}
+
+main .deleteHabit h2 {
+  display: inline-block;
+  width: 90vw;
+  margin: 0 10px 20px;
+  text-align: center;
+}
+
+main .deleteHabit button {
+  width: 45vw;
+  margin: 20px auto;
+  display: block;
+  padding: 15px 0;
+  border: none;
+  border-radius: 50px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: "Roboto", sans-serif;
+  color: #fff;
+  letter-spacing: 1.5px;
+  cursor: pointer;
+  outline: 0;
+  background-color: #024059;
 }
 
 @media (min-width: 375px) and (orientation: portrait) {
@@ -208,6 +467,9 @@ main .listDays li::after {
 }
 
 @media (min-width: 768px) and (orientation: portrait) {
+  main {
+    height: calc(100vh - 120px);
+  }
   main .calendar .month {
     height: 60px;
     line-height: 40px;
@@ -223,6 +485,9 @@ main .listDays li::after {
     line-height: 55px;
     font-size: 45px;
   }
+  main .listDays::-webkit-scrollbar {
+    width: 10px;
+  }
   main .listDays li {
     height: 60px;
     border-radius: 8px;
@@ -234,11 +499,34 @@ main .listDays li::after {
     height: 30px;
     width: 30px;
   }
+  main .addHabit {
+    top: 35vh;
+    height: 25vh;
+  }
+  main .addHabit form input {
+    width: 50vw;
+  }
+  main .addHabit form button {
+    width: 25vw;
+  }
+  main .deleteHabit {
+    top: 40vh;
+    height: 20vh;
+  }
+  main .deleteHabit button {
+    width: 30vw;
+  }
 }
 
 @media (min-width: 533px) and (orientation: landscape) {
   main .listDays {
     height: 25vh;
+  }
+  main .addHabit form input {
+    width: 50vw;
+  }
+  main .addHabit form button {
+    width: 30vw;
   }
 }
 
@@ -257,6 +545,12 @@ main .listDays li::after {
 @media (min-width: 731px) and (orientation: landscape) {
   main .listDays {
     height: 50vh;
+  }
+  main .addHabit form input {
+    width: 45vw;
+  }
+  main .addHabit form button {
+    width: 20vw;
   }
 }
 
@@ -282,6 +576,117 @@ main .listDays li::after {
     font-size: 18px;
     line-height: 30px;
   }
+  main .addHabit {
+    top: 30vh;
+    height: 30vh;
+  }
+  main .addHabit form input {
+    width: 40vw;
+  }
+  main .addHabit form button {
+    width: 18vw;
+  }
+  main .deleteHabit {
+    top: 40vh;
+    height: 20vh;
+  }
+  main .deleteHabit button {
+    width: 30vw;
+  }
+}
+
+@media (min-width: 1100px) {
+  main {
+    height: 75vh;
+    top: calc(25vh/2);
+    left: 0;
+    width: 80vw;
+    margin: 0 auto;
+    background-color: #ADC5D9;
+    border-radius: 5px;
+  }
+  main h1 {
+    height: 50px;
+    width: 100%;
+    margin: 10px 0;
+    line-height: 50px;
+    text-align: center;
+  }
+  main .calendar {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    width: 100%;
+    height: calc(100% - 110px);
+    overflow: hidden;
+    margin: 10px auto;
+  }
+  main .calendar .fa-arrow-left {
+    left: 20px;
+    font-size: 26px;
+    z-index: 2;
+  }
+  main .calendar .fa-arrow-right {
+    right: 20px;
+    font-size: 26px;
+  }
+  main .calendar .January {
+    display: block;
+  }
+  main .calendar .February {
+    display: block;
+  }
+  main .calendar .March {
+    display: block;
+  }
+  main .calendar .month {
+    width: 300px;
+  }
+  main .calendar .listDays {
+    height: 55vh;
+  }
+  main .calendar .listDays li::after {
+    top: 8px;
+    right: 20px;
+    height: 25px;
+    width: 25px;
+  }
+  main .addHabit {
+    left: 25%;
+    height: 35vh;
+    width: 50%;
+  }
+  main .addHabit h2 {
+    margin-top: 25px;
+    width: 90%;
+  }
+  main .addHabit form input {
+    width: 50%;
+  }
+  main .addHabit form button {
+    width: 25%;
+  }
+  main .addHabit form button:hover {
+    border-color: #024059;
+    -webkit-box-shadow: 0 0 32px 0 #024059;
+            box-shadow: 0 0 32px 0 #024059;
+  }
+  main .deleteHabit {
+    top: 30vh;
+    left: 25%;
+    height: 35vh;
+    width: 50%;
+  }
+  main .deleteHabit h2 {
+    margin-top: 25px;
+    width: 90%;
+  }
+  main .deleteHabit button {
+    width: 33%;
+  }
 }
 
 * {
@@ -293,5 +698,6 @@ main .listDays li::after {
 
 body {
   font-family: 'Roboto', sans-serif;
+  background-color: #eeeffe;
 }
 /*# sourceMappingURL=style.css.map */

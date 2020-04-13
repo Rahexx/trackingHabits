@@ -1,6 +1,6 @@
 main
+    position: relative
     height: calc(100vh - 70px)
-    background-color: #eeeffe
     color: #024059
     h1
         height: 50px
@@ -13,6 +13,12 @@ main
         position: relative
         width: 70vw
         margin: 10px auto
+        .January
+            display: block
+        .February
+            display: none
+        .March
+            display: none
         .month
             position: relative
             height: 40px
@@ -33,7 +39,7 @@ main
             height: 100%
             line-height: 40px
             font-size: 22px
-            color: #9297f7
+            color: #4951F2
         .fa-arrow-right
             position: absolute
             top: 0
@@ -41,10 +47,17 @@ main
             height: 100%
             line-height: 40px
             font-size: 22px
-            color: #9297f7
+            color: #4951F2
     .listDays
         height: 60vh
-        overflow: scroll
+        overflow: auto
+        &::-webkit-scrollbar 
+            width: 6px
+        &::-webkit-scrollbar-track 
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3)  
+        &::-webkit-scrollbar-thumb 
+            background-color: darkgrey
+            outline: 1px solid slategrey
         li
             position: relative
             height: 30px
@@ -66,12 +79,42 @@ main
                width: 20px
                border-radius: 50px
                background-color: white
+    .addHabit
+        +popUp(none)
+        i
+            +closePopUp
+        h2
+            +textPopUp
+        form
+            display: flex
+            flex-direction: column         
+            input
+                width: 75vw
+                border: 2px solid #aaa
+                border-radius: 4px
+                margin: 8px auto
+                outline: none
+                padding: 8px
+                box-sizing: border-box
+                transition: 0.3s
+                &:focus
+                    border-color: #024059
+                    box-shadow: 0 0 32px 0 #024059
+            button
+                +buttonPopUp
+    .deleteHabit
+        +popUp(none)
+        i
+            +closePopUp
+        h2
+            +textPopUp
+        button
+            +buttonPopUp
 
 @media (min-width: 375px) and (orientation: portrait)
     main
         .listDays
             height: 67vh
-
 
 @media (min-width: 411px) and (orientation: portrait)
     main
@@ -97,6 +140,7 @@ main
 
 @media (min-width: 768px) and (orientation: portrait)
     main
+        height: calc(100vh - 120px)
         .calendar
             .month
                height: 60px 
@@ -111,6 +155,8 @@ main
                 line-height: 55px
                 font-size: 45px
         .listDays
+            &::-webkit-scrollbar 
+                width: 10px
             li
                 height: 60px
                 border-radius: 8px
@@ -120,11 +166,30 @@ main
                     top: 12px
                     height: 30px
                     width: 30px
+        .addHabit
+            top: 35vh
+            height: 25vh
+            form
+                input
+                    width: 50vw
+                button
+                    width: 25vw
+        .deleteHabit
+            top: 40vh
+            height: 20vh
+            button
+                width: 30vw
 
 @media (min-width: 533px) and (orientation: landscape)
     main
         .listDays
             height: 25vh
+        .addHabit
+            form
+                input
+                    width: 50vw
+                button
+                    width: 30vw
             
 @media (min-width: 640px) and (orientation: landscape)
     main
@@ -139,6 +204,12 @@ main
     main
         .listDays
             height: 50vh
+        .addHabit
+            form
+                input
+                    width: 45vw
+                button
+                    width: 20vw
             
 @media (min-width: 812px) and (orientation: landscape)
     main
@@ -159,6 +230,88 @@ main
                 border-radius: 8px
                 font-size: 18px
                 line-height: 30px
+        .addHabit
+            top: 30vh
+            height: 30vh
+            form
+                input
+                    width: 40vw
+                button
+                    width: 18vw
+        .deleteHabit
+            top: 40vh
+            height: 20vh
+            button
+                width: 30vw
 
 @media (min-width: 1100px)
     main
+        height: 75vh
+        top: calc(25vh/2)
+        left: 0
+        width: 80vw
+        margin: 0 auto
+        background-color: #ADC5D9
+        border-radius: 5px
+        h1
+            height: 50px
+            width: 100%
+            margin: 10px 0
+            line-height: 50px
+            text-align: center
+        .calendar
+            position: relative
+            display: flex
+            justify-content: space-around
+            width: 100%
+            height: calc(100% - 110px)
+            overflow: hidden
+            margin: 10px auto
+            .fa-arrow-left
+                left: 20px
+                font-size: 26px
+                z-index: 2
+            .fa-arrow-right
+                right: 20px
+                font-size: 26px
+            .January
+                display: block
+            .February
+                display: block
+            .March
+                display: block
+            .month
+                width: 300px
+            .listDays
+                height: 55vh
+                li
+                    &::after
+                        top: 8px
+                        right: 20px
+                        height: 25px
+                        width: 25px
+        .addHabit
+            left: 25%
+            height: 35vh
+            width: 50%
+            h2
+                margin-top: 25px
+                width: 90%
+            form
+                input
+                    width: 50%
+                button
+                    width: 25%
+                    &:hover                 
+                        border-color: #024059
+                        box-shadow: 0 0 32px 0 #024059
+        .deleteHabit
+            top: 30vh
+            left: 25%
+            height: 35vh
+            width: 50%
+            h2
+                margin-top: 25px
+                width: 90%
+            button
+                width: 33%
