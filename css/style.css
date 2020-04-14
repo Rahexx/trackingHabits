@@ -100,8 +100,8 @@ nav ul span {
 
 @media (min-width: 1100px) {
   nav {
-    bottom: 590px;
-    right: 170px;
+    bottom: 665px;
+    right: 210px;
     width: 80px;
     height: 60px;
     padding: 10px;
@@ -133,7 +133,29 @@ nav ul span {
     font-size: 22px;
   }
   nav ul li .listHabit {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 200px;
     display: none;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: flex-;
+        -ms-flex-pack: flex-;
+            justify-content: flex-;
+    z-index: 1;
+  }
+  nav ul li .listHabit li {
+    height: 30px;
+    width: 100%;
+    margin: 5px 0;
+    background-color: #0477BF;
+    border-radius: 15px;
+    line-height: 30px;
+    font-size: 16px;
   }
   nav ul li:hover {
     color: #024059;
@@ -317,6 +339,7 @@ main .addHabit {
           justify-content: center;
   background-color: #4951F2;
   color: white;
+  z-index: 2;
 }
 
 main .addHabit i {
@@ -325,6 +348,7 @@ main .addHabit i {
   right: 15px;
   font-size: 30px;
   color: white;
+  cursor: pointer;
 }
 
 main .addHabit h2 {
@@ -398,6 +422,7 @@ main .deleteHabit {
           justify-content: center;
   background-color: #4951F2;
   color: white;
+  z-index: 2;
 }
 
 main .deleteHabit i {
@@ -406,6 +431,7 @@ main .deleteHabit i {
   right: 15px;
   font-size: 30px;
   color: white;
+  cursor: pointer;
 }
 
 main .deleteHabit h2 {
@@ -655,9 +681,13 @@ main .deleteHabit button {
     width: 25px;
   }
   main .addHabit {
+    top: 20vh;
     left: 25%;
     height: 35vh;
     width: 50%;
+  }
+  main .addHabit i:hover {
+    color: #024059;
   }
   main .addHabit h2 {
     margin-top: 25px;
@@ -675,10 +705,13 @@ main .deleteHabit button {
             box-shadow: 0 0 32px 0 #024059;
   }
   main .deleteHabit {
-    top: 30vh;
+    top: 20vh;
     left: 25%;
     height: 35vh;
     width: 50%;
+  }
+  main .deleteHabit i:hover {
+    color: #024059;
   }
   main .deleteHabit h2 {
     margin-top: 25px;
