@@ -25,16 +25,85 @@ nav ul {
           align-items: center;
 }
 
+nav ul .closeNav {
+  display: none;
+}
+
 nav ul li {
   width: calc(100%/3);
   padding: 10px 0;
   position: relative;
   text-align: center;
   font-size: 20px;
+  -webkit-transition: all .5s ease;
+  transition: all .5s ease;
 }
 
-nav ul li .listHabit {
+nav ul li .listHolder {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  padding: 10px;
   display: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: #eeeffe;
+  color: white;
+  z-index: 2;
+}
+
+nav ul li .listHolder i {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+  color: #024059;
+  -webkit-transition: all .5s ease;
+  transition: all .5s ease;
+}
+
+nav ul li .listHolder h2 {
+  display: inline-block;
+  width: 90vw;
+  margin: 0 10px 20px;
+  text-align: center;
+  margin-top: 30px;
+  color: #024059;
+}
+
+nav ul li .listHolder .listHabit {
+  width: 100%;
+  min-height: 200px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  z-index: 1;
+}
+
+nav ul li .listHolder .listHabit li {
+  height: 30px;
+  width: 100%;
+  margin: 5px 0;
+  background-color: #0477BF;
+  border-radius: 15px;
+  line-height: 10px;
+  font-size: 16px;
 }
 
 nav ul span {
@@ -67,10 +136,11 @@ nav ul span {
   nav ul li {
     font-size: 32px;
   }
-  nav ul li .listHabit li {
-    height: 40px;
-    width: 50%;
-    line-height: 15px;
+  nav ul li .listHolder .listHabit li {
+    height: 50px;
+    width: 70%;
+    line-height: 30px;
+    font-size: 30px;
   }
   nav ul span {
     top: 55px;
@@ -78,16 +148,9 @@ nav ul span {
   }
 }
 
-@media (min-width: 1024px) and (orientation: landscape) {
-  nav {
-    height: 84px;
-  }
-  nav ul li {
-    font-size: 25px;
-  }
-  nav ul span {
-    top: 45px;
-    font-size: 14px;
+@media (min-width: 533px) and (orientation: landscape) {
+  nav ul li .listHolder .listHabit li {
+    width: 60%;
   }
 }
 
@@ -98,10 +161,32 @@ nav ul span {
   }
 }
 
+@media (min-width: 812px) and (orientation: landscape) {
+  nav ul li .listHolder .listHabit li {
+    width: 50%;
+  }
+}
+
+@media (min-width: 1024px) and (orientation: landscape) {
+  nav {
+    height: 84px;
+  }
+  nav ul li {
+    font-size: 25px;
+  }
+  nav ul li .listHolder .listHabit li {
+    width: 50%;
+  }
+  nav ul span {
+    top: 45px;
+    font-size: 14px;
+  }
+}
+
 @media (min-width: 1100px) {
   nav {
     bottom: 665px;
-    right: 210px;
+    right: 180px;
     width: 80px;
     height: 60px;
     padding: 10px;
@@ -122,40 +207,64 @@ nav ul span {
     line-height: calc(100% + 35px);
     -webkit-transition: .5s ease;
     transition: .5s ease;
+    cursor: pointer;
+  }
+  nav .fa-cog:hover {
+    color: #024059;
   }
   nav ul {
     display: none;
     -webkit-transition: .5s ease;
     transition: .5s ease;
   }
+  nav ul .closeNav {
+    display: block;
+  }
   nav ul li {
+    width: calc(100%/4);
     padding: 0;
     font-size: 22px;
   }
-  nav ul li .listHabit {
-    position: absolute;
-    top: 0;
-    left: 0;
+  nav ul li .listHolder {
+    top: 20vh;
+    left: 25%;
+    height: 50vh;
+    width: 50%;
+    border-radius: 20px;
+  }
+  nav ul li .listHolder h2 {
+    margin-top: 25px;
+    width: 90%;
+  }
+  nav ul li .listHolder i:hover {
+    color: #4951F2;
+  }
+  nav ul li .listHolder .listHabit {
     width: 100%;
     min-height: 200px;
-    display: none;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;
             flex-direction: column;
-    -webkit-box-pack: flex-;
-        -ms-flex-pack: flex-;
-            justify-content: flex-;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
     z-index: 1;
   }
-  nav ul li .listHabit li {
+  nav ul li .listHolder .listHabit li {
     height: 30px;
-    width: 100%;
+    width: 50%;
     margin: 5px 0;
     background-color: #0477BF;
     border-radius: 15px;
     line-height: 30px;
     font-size: 16px;
+  }
+  nav ul li .listHolder .listHabit li:hover {
+    color: #024059;
   }
   nav ul li:hover {
     color: #024059;
@@ -167,18 +276,7 @@ nav ul span {
     font-size: 12px;
     opacity: 0;
   }
-  nav:hover {
-    width: 320px;
-  }
-  nav:hover .fa-cog {
-    display: none;
-  }
-  nav:hover ul {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-  }
-  nav:hover ul span {
+  .grow {
     -webkit-animation: growSpan 1s linear 1 forwards;
             animation: growSpan 1s linear 1 forwards;
   }

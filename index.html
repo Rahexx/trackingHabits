@@ -19,7 +19,7 @@
   <body>
     <nav>
       <i class="fas fa-cog"></i>
-      <ul>
+      <ul class="navList">
         <li class="add"><i class="fas fa-plus"></i><span>Dodaj nawyk</span></li>
         <li class="delete">
           <i class="fas fa-trash"></i><span>Usuń nawyk</span>
@@ -27,16 +27,19 @@
         <li class="habit">
           <i class="fas fa-list"></i>
           <span>Lista nawyków</span>
-          <ul class="listHabit">
-            <li>Nawyk 1</li>
-            <li>Nawyk 2</li>
-            <li>Nawyk 3</li>
-          </ul>
+          <div class="listHolder">
+            <i class="fas fa-times"></i>  
+            <h2>Lista nawyków:</h2>
+            <ul class="listHabit"></ul>
+          </div>
+        </li>
+        <li class="closeNav">
+          <i class="fas fa-times"></i><span>Zamknij</span>
         </li>
       </ul>
     </nav>
     <main>
-      <h1>Nazwa nawyku</h1>
+      <h1></h1>
       <div class="calendar">
         <i class="fas fa-arrow-left"></i>
         <i class="fas fa-arrow-right"></i>

@@ -14,31 +14,40 @@ nav
         display: flex
         justify-content: space-around
         align-items: center
+        .closeNav
+            display: none
         li  
             width: calc(100%/3)
             padding: 10px 0
             position: relative
             text-align: center
             font-size: 20px
-            .listHabit
-                display: none
-                // position: absolute
-                // top: -220px
-                // left: 0
-                // width: 100%
-                // min-height: 200px
-                // display: flex
-                // flex-direction: column
-                // justify-content: flex-end
-                // z-index: 1
-                // li
-                //     height: 30px
-                //     width: 100%
-                //     margin: 5px 0
-                //     background-color: #0477BF
-                //     border-radius: 15px
-                //     line-height: 10px
-                //     font-size: 16px
+            transition: all .5s ease
+            .listHolder
+                +popUp(none, fixed, #eeeffe)
+                i
+                    +closePopUp()
+                    color: #024059 
+                    transition: all .5s ease
+                h2
+                    +textPopUp()
+                    margin-top: 30px
+                    color: #024059  
+                .listHabit
+                    width: 100%
+                    min-height: 200px
+                    display: flex
+                    flex-direction: column
+                    justify-content: flex-start
+                    z-index: 1
+                    li
+                        height: 30px
+                        width: 100%
+                        margin: 5px 0
+                        background-color: #0477BF
+                        border-radius: 15px
+                        line-height: 10px
+                        font-size: 16px
         span
             width: 100%
             position: absolute
@@ -64,24 +73,25 @@ nav
         ul
             li
                 font-size: 32px
-                .listHabit
-                    li
-                        height: 40px
-                        width: 50%
-                        line-height: 15px
+                .listHolder
+                    .listHabit
+                        li
+                            height: 50px
+                            width: 70%
+                            line-height: 30px
+                            font-size: 30px
             span
                 top: 55px
                 font-size: 22px
 
-@media (min-width: 1024px) and (orientation: landscape)
+@media (min-width: 533px) and (orientation: landscape)
     nav
-        height: 84px
         ul
-            li
-                font-size: 25px
-            span
-                top: 45px
-                font-size: 14px
+            li  
+                .listHolder
+                    .listHabit
+                        li
+                            width: 60%
 
 @media (min-width: 640px) and (orientation: landscape)
     nav
@@ -92,13 +102,36 @@ nav
                         height: 30px
                         width: 50%
 
+@media (min-width: 812px) and (orientation: landscape)
+    nav
+        ul
+            li  
+                .listHolder
+                    .listHabit
+                        li
+                            width: 50%
+
+@media (min-width: 1024px) and (orientation: landscape)
+    nav
+        height: 84px
+        ul
+            li
+                font-size: 25px
+                .listHolder
+                    .listHabit
+                        li
+                            width: 50%
+            span
+                top: 45px
+                font-size: 14px
+
 @media (min-width: 1100px)
     nav
         // bottom: 590px
         // right: 170px
         //Bottom and right for Parcel
         bottom: 665px
-        right: 210px
+        right: 180px
         width: 80px
         height: 60px
         padding: 10px
@@ -116,30 +149,46 @@ nav
             font-size: 26px
             line-height: calc(100% + 35px)
             transition: .5s ease
+            cursor: pointer
+            &:hover
+                color: #024059
         ul
             display: none
             transition: .5s ease
+            .closeNav
+                display: block
             li  
+                width: calc(100%/4)
                 padding: 0
                 font-size: 22px
-                .listHabit
-                    position: absolute
-                    top: 0
-                    left: 0
-                    width: 100%
-                    min-height: 200px
-                    display: none
-                    flex-direction: column
-                    justify-content: flex-
-                    z-index: 1
-                    li
-                        height: 30px
+                .listHolder
+                    top: 20vh
+                    left: 25%
+                    height: 50vh
+                    width: 50%
+                    border-radius: 20px
+                    h2
+                        margin-top: 25px
+                        width: 90%
+                    i:hover
+                        color: #4951F2
+                    .listHabit
                         width: 100%
-                        margin: 5px 0
-                        background-color: #0477BF
-                        border-radius: 15px
-                        line-height: 30px
-                        font-size: 16px
+                        min-height: 200px
+                        display: flex
+                        flex-direction: column
+                        justify-content: flex-start
+                        z-index: 1
+                        li
+                            height: 30px
+                            width: 50%
+                            margin: 5px 0
+                            background-color: #0477BF
+                            border-radius: 15px
+                            line-height: 30px
+                            font-size: 16px
+                            &:hover
+                                color: #024059
                 &:hover
                     color: #024059
                     cursor: pointer
@@ -148,14 +197,8 @@ nav
                 left: 0
                 font-size: 12px
                 opacity: 0
-        &:hover
-            width: 320px
-        &:hover .fa-cog
-            display: none
-        &:hover ul
-            display: flex
-        &:hover ul span 
-            animation: growSpan 1s linear 1 forwards
+    .grow
+        animation: growSpan 1s linear 1 forwards
 
 @keyframes growSpan
     0%
