@@ -27,14 +27,19 @@ function renderListHabits(list, habitHead) {
     });
   });
 }
+
+function validateNewHabit(newHabit) {
+  return newHabit.length > 3;
+}
+
 function addHabit(e) {
   e.preventDefault();
 
   const newHabit = formAddHabit.children[0].value;
-
   popUpAdd.style.display = 'none';
   div.style.width = '0';
   formAddHabit.children[0].value = '';
+  if (newHabit.length < 3) return false;
 
   return newHabit;
 }
@@ -112,5 +117,9 @@ function initNav() {
 }
 
 export {
-  initNav, addHabit, removeCurrentHabit, renderListHabits,
+  initNav,
+  addHabit,
+  removeCurrentHabit,
+  renderListHabits,
+  validateNewHabit,
 };

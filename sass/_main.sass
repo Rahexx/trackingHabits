@@ -9,45 +9,42 @@ main
         display: inline-block
         line-height: 50px
         text-align: center
+    .fa-arrow-left
+        position: absolute
+        top: 0
+        left: -30px
+        height: 100%
+        line-height: 40px
+        font-size: 22px
+        color: #4951F2
+    .fa-arrow-right
+        position: absolute
+        top: 0
+        right: -30px
+        height: 100%
+        line-height: 40px
+        font-size: 22px
+        color: #4951F2
     .calendar
         position: relative
         width: 70vw
         margin: 10px auto
-        .January
-            display: block
-        .February
-            display: none
-        .March
-            display: none
-        .month
-            position: relative
-            height: 40px
-            padding: 10px 15px
-            margin-bottom: 10px
-            border-radius: 10px
-            background-color: #4951F2
-            color: white
-            span
-                position: absolute
-                bottom: 5px
-                right: 20px
-                font-size: 12px
-        .fa-arrow-left
-            position: absolute
-            top: 0
-            left: -30px
-            height: 100%
-            line-height: 40px
-            font-size: 22px
-            color: #4951F2
-        .fa-arrow-right
-            position: absolute
-            top: 0
-            right: -30px
-            height: 100%
-            line-height: 40px
-            font-size: 22px
-            color: #4951F2
+        overflow: hidden
+        .monthsHolder
+            width: 90%
+            .month
+                position: relative
+                height: 40px
+                padding: 10px 15px
+                margin-bottom: 10px
+                border-radius: 10px
+                background-color: #4951F2
+                color: white
+                span
+                    position: absolute
+                    bottom: 5px
+                    right: 20px
+                    font-size: 12px
     .listDays
         height: 60vh
         overflow: auto
@@ -69,8 +66,7 @@ main
             background-color: #9297f7
             color: white
             line-height: 20px
-            &::after
-               content: '' 
+            span
                position: absolute
                top: 5px
                right: 20px
@@ -79,6 +75,8 @@ main
                width: 20px
                border-radius: 50px
                background-color: white
+               &:hover
+                cursor: pointer
     .addHabit
         +popUp(none, absolute, #4951F2)
         i
@@ -118,22 +116,22 @@ main
 
 @media (min-width: 411px) and (orientation: portrait)
     main
+        .fa-arrow-left
+            left: -35px
+            font-size: 28px
+        .fa-arrow-right
+            right: -35px
+            font-size: 28px
         .calendar
             .month
                height: 50px 
                line-height: 30px
-            .fa-arrow-left
-                left: -35px
-                font-size: 28px
-            .fa-arrow-right
-                right: -35px
-                font-size: 28px
         .listDays
             height: 69vh
             li
                 height: 40px
                 border-radius: 8px
-                &::after
+                span
                     top: 8px
                     height: 22px
                     width: 22px
@@ -141,19 +139,19 @@ main
 @media (min-width: 768px) and (orientation: portrait)
     main
         height: calc(100vh - 120px)
+        .fa-arrow-left
+            left: -60px
+            line-height: 55px
+            font-size: 45px
+        .fa-arrow-right
+            right: -60px
+            line-height: 55px
+            font-size: 45px
         .calendar
             .month
                height: 60px 
                line-height: 40px
                font-size: 28px
-            .fa-arrow-left
-                left: -60px
-                line-height: 55px
-                font-size: 45px
-            .fa-arrow-right
-                right: -60px
-                line-height: 55px
-                font-size: 45px
         .listDays
             &::-webkit-scrollbar 
                 width: 10px
@@ -162,7 +160,7 @@ main
                 border-radius: 8px
                 font-size: 28px
                 line-height: 50px
-                &::after
+                span
                     top: 12px
                     height: 30px
                     width: 30px
@@ -259,37 +257,45 @@ main
             margin: 10px 0
             line-height: 50px
             text-align: center
+        .fa-arrow-left
+            left: 20px
+            font-size: 26px
+            z-index: 2
+            cursor: pointer
+        .fa-arrow-right
+            right: -20px
+            font-size: 26px
+            cursor: pointer
         .calendar
             position: relative
-            display: flex
-            justify-content: space-around
             width: 100%
             height: calc(100% - 110px)
             overflow: hidden
             margin: 10px auto
-            .fa-arrow-left
-                left: 20px
-                font-size: 26px
-                z-index: 2
-            .fa-arrow-right
-                right: 20px
-                font-size: 26px
-            .January
-                display: block
-            .February
-                display: block
-            .March
-                display: block
-            .month
-                width: 300px
-            .listDays
-                height: 55vh
-                li
-                    &::after
-                        top: 8px
-                        right: 20px
-                        height: 25px
-                        width: 25px
+            .monthsHolder
+                position: absolute
+                top: 0
+                left: 1530px  //1530  530 -490 -1490
+                min-width: 100%
+                display: flex
+                justify-content: space-around
+                transition: all .5s ease
+                div
+                    margin-right: 30px
+                    .month
+                        width: 270px
+                    .listDays
+                        height: 55vh
+                        li
+                            span
+                                top: 8px
+                                right: 20px
+                                height: 25px
+                                width: 25px
+                            .done
+                                background-color: green
+                            .notDone
+                                background-color: red
         .addHabit
             top: 20vh
             left: 25%

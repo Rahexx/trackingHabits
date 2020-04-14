@@ -321,42 +321,7 @@ main h1 {
   text-align: center;
 }
 
-main .calendar {
-  position: relative;
-  width: 70vw;
-  margin: 10px auto;
-}
-
-main .calendar .January {
-  display: block;
-}
-
-main .calendar .February {
-  display: none;
-}
-
-main .calendar .March {
-  display: none;
-}
-
-main .calendar .month {
-  position: relative;
-  height: 40px;
-  padding: 10px 15px;
-  margin-bottom: 10px;
-  border-radius: 10px;
-  background-color: #4951F2;
-  color: white;
-}
-
-main .calendar .month span {
-  position: absolute;
-  bottom: 5px;
-  right: 20px;
-  font-size: 12px;
-}
-
-main .calendar .fa-arrow-left {
+main .fa-arrow-left {
   position: absolute;
   top: 0;
   left: -30px;
@@ -366,7 +331,7 @@ main .calendar .fa-arrow-left {
   color: #4951F2;
 }
 
-main .calendar .fa-arrow-right {
+main .fa-arrow-right {
   position: absolute;
   top: 0;
   right: -30px;
@@ -374,6 +339,34 @@ main .calendar .fa-arrow-right {
   line-height: 40px;
   font-size: 22px;
   color: #4951F2;
+}
+
+main .calendar {
+  position: relative;
+  width: 70vw;
+  margin: 10px auto;
+  overflow: hidden;
+}
+
+main .calendar .monthsHolder {
+  width: 90%;
+}
+
+main .calendar .monthsHolder .month {
+  position: relative;
+  height: 40px;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background-color: #4951F2;
+  color: white;
+}
+
+main .calendar .monthsHolder .month span {
+  position: absolute;
+  bottom: 5px;
+  right: 20px;
+  font-size: 12px;
 }
 
 main .listDays {
@@ -408,8 +401,7 @@ main .listDays li {
   line-height: 20px;
 }
 
-main .listDays li::after {
-  content: '';
+main .listDays li span {
   position: absolute;
   top: 5px;
   right: 20px;
@@ -418,6 +410,10 @@ main .listDays li::after {
   width: 20px;
   border-radius: 50px;
   background-color: white;
+}
+
+main .listDays li span:hover {
+  cursor: pointer;
 }
 
 main .addHabit {
@@ -564,17 +560,17 @@ main .deleteHabit button {
 }
 
 @media (min-width: 411px) and (orientation: portrait) {
-  main .calendar .month {
-    height: 50px;
-    line-height: 30px;
-  }
-  main .calendar .fa-arrow-left {
+  main .fa-arrow-left {
     left: -35px;
     font-size: 28px;
   }
-  main .calendar .fa-arrow-right {
+  main .fa-arrow-right {
     right: -35px;
     font-size: 28px;
+  }
+  main .calendar .month {
+    height: 50px;
+    line-height: 30px;
   }
   main .listDays {
     height: 69vh;
@@ -583,7 +579,7 @@ main .deleteHabit button {
     height: 40px;
     border-radius: 8px;
   }
-  main .listDays li::after {
+  main .listDays li span {
     top: 8px;
     height: 22px;
     width: 22px;
@@ -594,20 +590,20 @@ main .deleteHabit button {
   main {
     height: calc(100vh - 120px);
   }
-  main .calendar .month {
-    height: 60px;
-    line-height: 40px;
-    font-size: 28px;
-  }
-  main .calendar .fa-arrow-left {
+  main .fa-arrow-left {
     left: -60px;
     line-height: 55px;
     font-size: 45px;
   }
-  main .calendar .fa-arrow-right {
+  main .fa-arrow-right {
     right: -60px;
     line-height: 55px;
     font-size: 45px;
+  }
+  main .calendar .month {
+    height: 60px;
+    line-height: 40px;
+    font-size: 28px;
   }
   main .listDays::-webkit-scrollbar {
     width: 10px;
@@ -618,7 +614,7 @@ main .deleteHabit button {
     font-size: 28px;
     line-height: 50px;
   }
-  main .listDays li::after {
+  main .listDays li span {
     top: 12px;
     height: 30px;
     width: 30px;
@@ -736,47 +732,57 @@ main .deleteHabit button {
     line-height: 50px;
     text-align: center;
   }
+  main .fa-arrow-left {
+    left: 20px;
+    font-size: 26px;
+    z-index: 2;
+    cursor: pointer;
+  }
+  main .fa-arrow-right {
+    right: -20px;
+    font-size: 26px;
+    cursor: pointer;
+  }
   main .calendar {
     position: relative;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-pack: distribute;
-        justify-content: space-around;
     width: 100%;
     height: calc(100% - 110px);
     overflow: hidden;
     margin: 10px auto;
   }
-  main .calendar .fa-arrow-left {
-    left: 20px;
-    font-size: 26px;
-    z-index: 2;
+  main .calendar .monthsHolder {
+    position: absolute;
+    top: 0;
+    left: 1530px;
+    min-width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    -webkit-transition: all .5s ease;
+    transition: all .5s ease;
   }
-  main .calendar .fa-arrow-right {
-    right: 20px;
-    font-size: 26px;
+  main .calendar .monthsHolder div {
+    margin-right: 30px;
   }
-  main .calendar .January {
-    display: block;
+  main .calendar .monthsHolder div .month {
+    width: 270px;
   }
-  main .calendar .February {
-    display: block;
-  }
-  main .calendar .March {
-    display: block;
-  }
-  main .calendar .month {
-    width: 300px;
-  }
-  main .calendar .listDays {
+  main .calendar .monthsHolder div .listDays {
     height: 55vh;
   }
-  main .calendar .listDays li::after {
+  main .calendar .monthsHolder div .listDays li span {
     top: 8px;
     right: 20px;
     height: 25px;
     width: 25px;
+  }
+  main .calendar .monthsHolder div .listDays li .done {
+    background-color: green;
+  }
+  main .calendar .monthsHolder div .listDays li .notDone {
+    background-color: red;
   }
   main .addHabit {
     top: 20vh;
