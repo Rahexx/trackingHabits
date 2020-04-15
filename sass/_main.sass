@@ -11,30 +11,38 @@ main
         text-align: center
     .fa-arrow-left
         position: absolute
-        top: 0
-        left: -30px
+        top: 15vh
+        left: 5vw
         height: 100%
         line-height: 40px
         font-size: 22px
         color: #4951F2
     .fa-arrow-right
         position: absolute
-        top: 0
-        right: -30px
-        height: 100%
+        top: 15vh
+        right: 5vw
         line-height: 40px
         font-size: 22px
         color: #4951F2
     .calendar
         position: relative
         width: 70vw
+        height: 100%
         margin: 10px auto
         overflow: hidden
         .monthsHolder
-            width: 90%
+            position: absolute
+            top: 0
+            left: 0
+            width: 100%
+            margin: 0
+            display: flex
+            justify-content: flex-start
+            transition: all .5s ease
             .month
                 position: relative
                 height: 40px
+                width: 70vw
                 padding: 10px 15px
                 margin-bottom: 10px
                 border-radius: 10px
@@ -75,8 +83,10 @@ main
                width: 20px
                border-radius: 50px
                background-color: white
-               &:hover
-                cursor: pointer
+            .done
+                background-color: green
+            .notDone
+                background-color: red
     .addHabit
         +popUp(none, absolute, #4951F2)
         i
@@ -117,10 +127,10 @@ main
 @media (min-width: 411px) and (orientation: portrait)
     main
         .fa-arrow-left
-            left: -35px
+            top: 10vh
             font-size: 28px
         .fa-arrow-right
-            right: -35px
+            top: 10vh
             font-size: 28px
         .calendar
             .month
@@ -140,18 +150,21 @@ main
     main
         height: calc(100vh - 120px)
         .fa-arrow-left
-            left: -60px
+            top: 8vh
             line-height: 55px
             font-size: 45px
         .fa-arrow-right
-            right: -60px
+            top: 8vh
             line-height: 55px
             font-size: 45px
         .calendar
-            .month
-               height: 60px 
-               line-height: 40px
-               font-size: 28px
+            .monthsHolder
+                .month
+                    height: 50px 
+                    line-height: 25 px
+                    font-size: 26px
+                    span
+                        font-size: 20px
         .listDays
             &::-webkit-scrollbar 
                 width: 10px
@@ -258,27 +271,31 @@ main
             line-height: 50px
             text-align: center
         .fa-arrow-left
-            left: 20px
+            top: 70px
+            left: 10px
             font-size: 26px
-            z-index: 2
+            z-index: 3
             cursor: pointer
         .fa-arrow-right
-            right: -20px
+            top: 70px
+            right: 10px
             font-size: 26px
+            z-index: 3
             cursor: pointer
         .calendar
             position: relative
             width: 100%
             height: calc(100% - 110px)
             overflow: hidden
-            margin: 10px auto
+            margin: 10px 0
             .monthsHolder
                 position: absolute
                 top: 0
-                left: 1530px  //1530  530 -490 -1490
-                min-width: 100%
+                left: 50px 
+                width: 100%
+                margin: 0
                 display: flex
-                justify-content: space-around
+                justify-content: flex-start
                 transition: all .5s ease
                 div
                     margin-right: 30px
@@ -292,6 +309,8 @@ main
                                 right: 20px
                                 height: 25px
                                 width: 25px
+                                &:hover
+                                    cursor: pointer
                             .done
                                 background-color: green
                             .notDone

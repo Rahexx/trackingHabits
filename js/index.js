@@ -1,6 +1,10 @@
+import { initNav, addHabit, removeCurrentHabit } from './nav';
 import {
-  initNav, addHabit, removeCurrentHabit, renderListHabits,
-} from './nav';
+  desktopSlideRight,
+  desktopSlideLeft,
+  mobileSlideRight,
+  mobileSlideLeft,
+} from './slideCalendar';
 import CalendarHabits from './calendarHabits';
 
 const habits = ['Przestać palić'];
@@ -14,19 +18,40 @@ const habitStatus = document.querySelectorAll('.listDays li span');
 const monthsHolder = document.querySelector('.monthsHolder');
 const leftArrow = document.querySelector('.fa-arrow-left');
 const rightArrow = document.querySelector('.fa-arrow-right');
+const listHabits = document.querySelector('.listHabit');
 let arrowFlag = 0;
 
+// create List habits
+function renderListHabits() {
+  listHabits.innerHTML = '';
+
+  habits.forEach((elem) => {
+    const li = document.createElement('li');
+    li.textContent = elem;
+    listHabits.appendChild(li);
+    li.addEventListener('click', () => {
+      habitText.textContent = li.textContent;
+      currentHabit = li.textContent;
+    });
+  });
+}
+
+// add and remove habit
 buttonAddHabit.addEventListener('click', (e) => {
   const newHabit = addHabit(e);
+
   if (newHabit !== false) habits.push(newHabit);
-  renderListHabits(habits, habitText);
+
+  renderListHabits();
 });
 
 buttonRemoveHabit.addEventListener('click', () => {
   const newCurrentHabit = removeCurrentHabit(habits, currentHabit);
+
   currentHabit = newCurrentHabit;
   habitText.textContent = currentHabit;
-  renderListHabits(habits, habitText);
+
+  renderListHabits();
 });
 
 habitStatus.forEach((elem) => {
@@ -41,40 +66,19 @@ habitStatus.forEach((elem) => {
   });
 });
 
+// arrow operation
 rightArrow.addEventListener('click', () => {
-  switch (arrowFlag) {
-    case 0:
-      monthsHolder.style.left = '530px';
-      arrowFlag++;
-      break;
-    case 1:
-      monthsHolder.style.left = '-460px';
-      arrowFlag++;
-      break;
-    case 2:
-      monthsHolder.style.left = '-1450px';
-      arrowFlag++;
-      break;
-  }
+  const widthHolder = monthsHolder.clientWidth;
+  if (widthHolder > 1100) arrowFlag = desktopSlideRight(arrowFlag);
+  else arrowFlag = mobileSlideRight(arrowFlag);
 });
 
 leftArrow.addEventListener('click', () => {
-  switch (arrowFlag) {
-    case 1:
-      monthsHolder.style.left = '1530px';
-      arrowFlag--;
-      break;
-    case 2:
-      monthsHolder.style.left = '530px';
-      arrowFlag--;
-      break;
-    case 3:
-      monthsHolder.style.left = '-460px';
-      arrowFlag--;
-      break;
-  }
+  const widthHolder = monthsHolder.clientWidth;
+  if (widthHolder > 1100) arrowFlag = desktopSlideLeft(arrowFlag);
+  else arrowFlag = mobileSlideLeft(arrowFlag);
 });
 
 initNav();
-renderListHabits(habits, habitText);
+renderListHabits();
 habitText.textContent = currentHabit;

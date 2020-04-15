@@ -6,7 +6,7 @@ const popUpDelete = document.querySelector('.deleteHabit');
 const removePopUp = document.querySelectorAll('.fa-times');
 const formAddHabit = document.querySelector('.addHabit form');
 const listHolder = document.querySelector('.listHolder');
-const listHabits = document.querySelector('.listHabit');
+// const listHabits = document.querySelector('.listHabit');
 const openSettings = document.querySelector('.fa-cog');
 const nav = document.querySelector('nav');
 const navList = document.querySelector('.navList');
@@ -14,19 +14,6 @@ const closeSettings = document.querySelector('.closeNav');
 const textNavList = document.querySelectorAll('.navList span');
 const div = document.createElement('div');
 let flagListHabit = 0;
-
-function renderListHabits(list, habitHead) {
-  const habitHtml = habitHead;
-  listHabits.innerHTML = '';
-  list.forEach((elem) => {
-    const li = document.createElement('li');
-    li.textContent = elem;
-    listHabits.appendChild(li);
-    li.addEventListener('click', () => {
-      habitHtml.textContent = li.textContent;
-    });
-  });
-}
 
 function validateNewHabit(newHabit) {
   return newHabit.length > 3;
@@ -44,15 +31,15 @@ function addHabit(e) {
   return newHabit;
 }
 
-function removeCurrentHabit(habit, currentHabit) {
-  if (habit.includes(currentHabit)) {
-    const indexHabit = habit.indexOf(currentHabit);
-    habit.splice(indexHabit, 1);
+function removeCurrentHabit(habits, currentHabit) {
+  if (habits.includes(currentHabit)) {
+    const indexHabit = habits.indexOf(currentHabit);
+    habits.splice(indexHabit, 1);
   }
 
   popUpDelete.style.display = 'none';
   div.style.width = '0';
-  return habit.length > 0 ? habit[0] : '';
+  return habits.length > 0 ? habits[0] : '';
 }
 
 function addStyle(element) {
@@ -116,10 +103,4 @@ function initNav() {
   document.body.appendChild(div);
 }
 
-export {
-  initNav,
-  addHabit,
-  removeCurrentHabit,
-  renderListHabits,
-  validateNewHabit,
-};
+export { initNav, addHabit, removeCurrentHabit, validateNewHabit };
