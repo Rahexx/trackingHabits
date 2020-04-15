@@ -22,9 +22,11 @@ class CalendarHabits {
 
   renderDay() {
     let textDays = '';
+
     for (let j = 1; j < 32; j++) {
       textDays += `<li>Dzień miesiąca ${j} <span></span></li>`;
     }
+
     return textDays;
   }
 

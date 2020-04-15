@@ -5,13 +5,15 @@ function desktopSlideRight(arrowFlag) {
 
   switch (flag) {
     case 0:
-      monthsHolder.style.transform = `translateX(calc(-100% + 50px))`;
+      monthsHolder.style.transform = 'translateX(calc(-100% + 50px))';
       flag++;
       break;
     case 1:
-      monthsHolder.style.transform = `translateX(calc(-200% + 100px))`;
+      monthsHolder.style.transform = 'translateX(calc(-200% + 100px))';
       flag++;
       break;
+    default:
+      return flag;
   }
 
   return flag;
@@ -22,13 +24,15 @@ function desktopSlideLeft(arrowFlag) {
 
   switch (flag) {
     case 1:
-      monthsHolder.style.transform = `translateX(0)`;
+      monthsHolder.style.transform = 'translateX(0)';
       flag--;
       break;
     case 2:
-      monthsHolder.style.transform = `translateX(calc(-100% + 50px))`;
+      monthsHolder.style.transform = 'translateX(calc(-100% + 50px))';
       flag--;
       break;
+    default:
+      return flag;
   }
   return flag;
 }

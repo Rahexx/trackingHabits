@@ -6,7 +6,6 @@ const popUpDelete = document.querySelector('.deleteHabit');
 const removePopUp = document.querySelectorAll('.fa-times');
 const formAddHabit = document.querySelector('.addHabit form');
 const listHolder = document.querySelector('.listHolder');
-// const listHabits = document.querySelector('.listHabit');
 const openSettings = document.querySelector('.fa-cog');
 const nav = document.querySelector('nav');
 const navList = document.querySelector('.navList');
@@ -21,11 +20,12 @@ function validateNewHabit(newHabit) {
 
 function addHabit(e) {
   e.preventDefault();
-
   const newHabit = formAddHabit.children[0].value;
+
   popUpAdd.style.display = 'none';
   div.style.width = '0';
   formAddHabit.children[0].value = '';
+
   if (newHabit.length < 3) return false;
 
   return newHabit;
@@ -39,11 +39,13 @@ function removeCurrentHabit(habits, currentHabit) {
 
   popUpDelete.style.display = 'none';
   div.style.width = '0';
+
   return habits.length > 0 ? habits[0] : '';
 }
 
 function addStyle(element) {
   const elem = element;
+
   elem.style.position = 'absolute';
   elem.style.top = '0';
   elem.style.left = '0';
@@ -54,6 +56,7 @@ function addStyle(element) {
 }
 
 function initNav() {
+  // Open popUp add and delete habit
   addSetHabit.addEventListener('click', () => {
     div.style.width = '100vw';
     popUpAdd.style.display = 'flex';
@@ -64,6 +67,7 @@ function initNav() {
     popUpDelete.style.display = 'flex';
   });
 
+  // show and close list habit
   listNavHabit.addEventListener('click', () => {
     if (flagListHabit === 0) {
       listHolder.style.display = 'block';
@@ -74,10 +78,21 @@ function initNav() {
     }
   });
 
+  // Close popUp add nad delete habit
+  removePopUp.forEach((elem) => {
+    elem.addEventListener('click', () => {
+      popUpAdd.style.display = 'none';
+      popUpDelete.style.display = 'none';
+      div.style.width = '0';
+    });
+  });
+
+  // Open and Close Navigation
   openSettings.addEventListener('click', () => {
     nav.style.width = '380px';
     openSettings.style.display = 'none';
     navList.style.display = 'flex';
+
     textNavList.forEach((elem) => {
       elem.classList.add('grow');
     });
@@ -87,20 +102,13 @@ function initNav() {
     nav.style.width = '80px';
     openSettings.style.display = 'block';
     navList.style.display = 'none';
-    listHabits.style.display = 'none';
     flagListHabit = 0;
-  });
-
-  removePopUp.forEach((elem) => {
-    elem.addEventListener('click', () => {
-      popUpAdd.style.display = 'none';
-      popUpDelete.style.display = 'none';
-      div.style.width = '0';
-    });
   });
 
   addStyle(div);
   document.body.appendChild(div);
 }
 
-export { initNav, addHabit, removeCurrentHabit, validateNewHabit };
+export {
+  initNav, addHabit, removeCurrentHabit, validateNewHabit,
+};
