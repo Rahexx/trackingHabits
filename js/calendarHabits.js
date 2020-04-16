@@ -1,7 +1,7 @@
 class CalendarHabits {
   constructor(habitsName, habits) {
-    this.habitsName = habitsName;
     this.habits = habits;
+    this.currentHabits = habitsName;
     this.months = [
       'Styczeń',
       'Luty',
@@ -16,18 +16,41 @@ class CalendarHabits {
       'Listopad',
       'Grudzień',
     ];
-
+    // It stores the sum of all months of each habit
+    this.sumResultHabits = [0];
+    // It stores months result of each habit
+    this.monthsResult = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
     this.renderCalendar();
   }
 
+  setCurrentHabit(newHabit) {
+    this.currentHabits = newHabit;
+  }
+
+  getCurrentHabit() {
+    return this.currentHabits;
+  }
+
+  // update array value  sumResultHabits
+  updateSumHabits(sum) {
+    const indexHabit = this.habits.indexOf(this.currentHabits);
+    if (indexHabit > -1) this.sumResultHabits[indexHabit] = sum;
+  }
+
+  updateMonthsValues(value, month) {
+    const indexHabit = this.habits.indexOf(this.currentHabits);
+    const indexMonth = this.months.indexOf(month);
+    if (indexHabit > -1 && indexMonth > -1) this.monthsResult[indexHabit][indexMonth] = value;
+  }
+
   renderDay() {
-    let textDays = '';
+    this.textDays = '';
 
     for (let j = 1; j < 32; j++) {
-      textDays += `<li>Dzień miesiąca ${j} <span></span></li>`;
+      this.textDays += `<li>Dzień miesiąca ${j} <span></span></li>`;
     }
 
-    return textDays;
+    return this.textDays;
   }
 
   renderCalendar() {

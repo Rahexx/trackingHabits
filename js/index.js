@@ -32,15 +32,18 @@ function changeValueSum() {
     sumMonthValue += Number(item.textContent.split('/')[0]);
   });
 
+  calendarHabits.updateSumHabits(sumMonthValue);
   sumMonthsElem.textContent = sumMonthValue;
 }
 
 function changeValueMonth(elem, operation) {
   const child = elem;
-  const currentMonthResult =
-    child.parentNode.parentNode.parentNode.previousSibling.previousSibling
-      .children[0];
+  const currentMonthResult = child.parentNode.parentNode.parentNode.previousSibling.previousSibling
+    .children[0];
   const textmonthResult = currentMonthResult.textContent.split('/');
+  const textMonth = child.parentNode.parentNode.parentNode.previousSibling.previousSibling
+    .textContent;
+  const month = textMonth.split(' ')[0];
   let resultMonth = 0;
 
   if (operation === 'inc') {
@@ -49,6 +52,7 @@ function changeValueMonth(elem, operation) {
     resultMonth = Number(textmonthResult[0]) - 1;
   }
   currentMonthResult.textContent = `${resultMonth}/${textmonthResult[1]}`;
+  calendarHabits.updateMonthsValues(resultMonth, month);
   changeValueSum();
 }
 
@@ -79,6 +83,7 @@ function renderListHabits() {
     li.addEventListener('click', () => {
       habitText.textContent = li.textContent;
       currentHabit = li.textContent;
+      calendarHabits.setCurrentHabit(li.textContent);
     });
   });
 }
