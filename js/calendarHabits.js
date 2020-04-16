@@ -38,7 +38,7 @@ class CalendarHabits {
       const days = this.renderDay();
       div.innerHTML += `
       <div>
-      <p class="month">${this.months[i]} <span>0/30</span></p>
+      <p class="month">${this.months[i]} <span class='monthsResult'>0/30</span></p>
       <div class="listDays">
           <ul>
             ${days}

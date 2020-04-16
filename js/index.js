@@ -21,6 +21,53 @@ const rightArrow = document.querySelector('.fa-arrow-right');
 const listHabits = document.querySelector('.listHabit');
 let arrowFlag = 0;
 
+// Change status habit, monthResult, sum in view
+
+function changeValueSum() {
+  const resultMonthElems = document.querySelectorAll('.monthsResult');
+  const sumMonthsElem = document.querySelector('.sum');
+  let sumMonthValue = 0;
+
+  resultMonthElems.forEach((item) => {
+    sumMonthValue += Number(item.textContent.split('/')[0]);
+  });
+
+  sumMonthsElem.textContent = sumMonthValue;
+}
+
+function changeValueMonth(elem, operation) {
+  const child = elem;
+  const currentMonthResult =
+    child.parentNode.parentNode.parentNode.previousSibling.previousSibling
+      .children[0];
+  const textmonthResult = currentMonthResult.textContent.split('/');
+  let resultMonth = 0;
+
+  if (operation === 'inc') {
+    resultMonth = Number(textmonthResult[0]) + 1;
+  } else if (operation === 'decr') {
+    resultMonth = Number(textmonthResult[0]) - 1;
+  }
+  currentMonthResult.textContent = `${resultMonth}/${textmonthResult[1]}`;
+  changeValueSum();
+}
+
+habitStatus.forEach((elem) => {
+  elem.addEventListener('click', () => {
+    if (!elem.classList.contains('done')) {
+      elem.classList.remove('notDone');
+      elem.classList.add('done');
+
+      changeValueMonth(elem, 'inc');
+    } else if (!elem.classList.contains('notDone')) {
+      elem.classList.remove('done');
+      elem.classList.add('notDone');
+
+      changeValueMonth(elem, 'decr');
+    }
+  });
+});
+
 // create List habits
 function renderListHabits() {
   listHabits.innerHTML = '';
@@ -52,18 +99,6 @@ buttonRemoveHabit.addEventListener('click', () => {
   habitText.textContent = currentHabit;
 
   renderListHabits();
-});
-
-habitStatus.forEach((elem) => {
-  elem.addEventListener('click', () => {
-    if (!elem.classList.contains('done')) {
-      elem.classList.remove('notDone');
-      elem.classList.add('done');
-    } else if (!elem.classList.contains('notDone')) {
-      elem.classList.remove('done');
-      elem.classList.add('notDone');
-    }
-  });
 });
 
 // arrow operation

@@ -3,12 +3,11 @@ main
     height: calc(100vh - 70px)
     color: #024059
     h1
-        height: 50px
-        width: 100vw
-        margin: 10px 0
-        display: inline-block
+        +mainH(50px)
+        margin: 5px 0
         line-height: 50px
-        text-align: center
+    h3
+        +mainH(30px)
     .fa-arrow-left
         position: absolute
         top: 15vh
@@ -265,11 +264,11 @@ main
         background-color: #ADC5D9
         border-radius: 5px
         h1
-            height: 50px
             width: 100%
-            margin: 10px 0
+            margin: 5px 0
             line-height: 50px
-            text-align: center
+        h3
+            width: 100%
         .fa-arrow-left
             top: 70px
             left: 10px

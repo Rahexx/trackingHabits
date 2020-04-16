@@ -316,9 +316,16 @@ main {
 main h1 {
   height: 50px;
   width: 100vw;
-  margin: 10px 0;
   display: inline-block;
+  text-align: center;
+  margin: 5px 0;
   line-height: 50px;
+}
+
+main h3 {
+  height: 30px;
+  width: 100vw;
+  display: inline-block;
   text-align: center;
 }
 
@@ -747,11 +754,12 @@ main .deleteHabit button {
     border-radius: 5px;
   }
   main h1 {
-    height: 50px;
     width: 100%;
-    margin: 10px 0;
+    margin: 5px 0;
     line-height: 50px;
-    text-align: center;
+  }
+  main h3 {
+    width: 100%;
   }
   main .fa-arrow-left {
     top: 70px;
