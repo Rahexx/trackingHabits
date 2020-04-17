@@ -18,8 +18,6 @@ class CalendarHabits {
     ];
     // It stores the sum of all months of each habit
     this.sumResultHabits = [0];
-    // It stores months result of each habit
-    this.monthsResult = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
     this.renderCalendar();
   }
 
@@ -31,14 +29,27 @@ class CalendarHabits {
     return this.currentHabits;
   }
 
+  getHabits() {
+    return this.habits;
+  }
+
+  getIndexCurrentHabit() {
+    return this.habits.indexOf(this.getCurrentHabit());
+  }
+
   // update array value  sumResultHabits
-  updateSumHabits(sum) {
-    const indexHabit = this.habits.indexOf(this.currentHabits);
+  setSumHabits(sum) {
+    const indexHabit = this.habits.indexOf(this.getCurrentHabit());
     if (indexHabit > -1) this.sumResultHabits[indexHabit] = sum;
   }
 
-  updateMonthsValues(value, month) {
-    const indexHabit = this.habits.indexOf(this.currentHabits);
+  getSumHabits() {
+    const indexHabit = this.habits.indexOf(this.getCurrentHabit());
+    return this.sumResultHabits[indexHabit];
+  }
+
+  setMonthsValues(value, month) {
+    const indexHabit = this.habits.indexOf(this.getCurrentHabit());
     const indexMonth = this.months.indexOf(month);
     if (indexHabit > -1 && indexMonth > -1) this.monthsResult[indexHabit][indexMonth] = value;
   }
@@ -55,22 +66,26 @@ class CalendarHabits {
 
   renderCalendar() {
     const calendar = document.querySelector('main .calendar .monthsHolder');
-
-    for (let i = 0; i < 12; i++) {
-      const div = document.createElement('div');
-      const days = this.renderDay();
-      div.innerHTML += `
-      <div>
-      <p class="month">${this.months[i]} <span class='monthsResult'>0/30</span></p>
-      <div class="listDays">
-          <ul>
-            ${days}
-          </ul>
+    if (this.currentHabits === '') calendar.innerHTML = '';
+    else {
+      for (let i = 0; i < 12; i++) {
+        const days = this.renderDay();
+        const div = document.createElement('div');
+        const firstWord = this.getCurrentHabit().split(' ')[0];
+        div.classList.add(`${firstWord}${this.getIndexCurrentHabit()}`);
+        div.innerHTML += `
+        <div>
+        <p class="month">${this.months[i]} <span class='monthsResult'>0/30</span></p>
+        <div class="listDays">
+            <ul>
+              ${days}
+            </ul>
+            </div>
           </div>
-        </div>
-      `;
+        `;
 
-      calendar.appendChild(div);
+        calendar.appendChild(div);
+      }
     }
   }
 }

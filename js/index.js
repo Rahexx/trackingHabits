@@ -32,7 +32,7 @@ function changeValueSum() {
     sumMonthValue += Number(item.textContent.split('/')[0]);
   });
 
-  calendarHabits.updateSumHabits(sumMonthValue);
+  calendarHabits.setSumHabits(sumMonthValue);
   sumMonthsElem.textContent = sumMonthValue;
 }
 
@@ -41,9 +41,6 @@ function changeValueMonth(elem, operation) {
   const currentMonthResult = child.parentNode.parentNode.parentNode.previousSibling.previousSibling
     .children[0];
   const textmonthResult = currentMonthResult.textContent.split('/');
-  const textMonth = child.parentNode.parentNode.parentNode.previousSibling.previousSibling
-    .textContent;
-  const month = textMonth.split(' ')[0];
   let resultMonth = 0;
 
   if (operation === 'inc') {
@@ -51,8 +48,9 @@ function changeValueMonth(elem, operation) {
   } else if (operation === 'decr') {
     resultMonth = Number(textmonthResult[0]) - 1;
   }
+
   currentMonthResult.textContent = `${resultMonth}/${textmonthResult[1]}`;
-  calendarHabits.updateMonthsValues(resultMonth, month);
+
   changeValueSum();
 }
 
@@ -72,6 +70,32 @@ habitStatus.forEach((elem) => {
   });
 });
 
+// hide previous habit months
+
+function hiveMonths() {
+  const firstWordCurrentHabit = calendarHabits.getCurrentHabit().split(' ')[0];
+  const months = document.querySelectorAll(
+    `.${firstWordCurrentHabit}${calendarHabits.getIndexCurrentHabit()}`,
+  );
+
+  months.forEach((elem) => {
+    elem.style.display = 'none';
+  });
+}
+
+// show habit months
+
+function showMonths() {
+  const firstWordCurrentHabit = calendarHabits.getCurrentHabit().split(' ')[0];
+  const months = document.querySelectorAll(
+    `.${firstWordCurrentHabit}${calendarHabits.getIndexCurrentHabit()}`,
+  );
+
+  months.forEach((elem) => {
+    elem.style.display = 'block';
+  });
+}
+
 // create List habits
 function renderListHabits() {
   listHabits.innerHTML = '';
@@ -81,9 +105,23 @@ function renderListHabits() {
     li.textContent = elem;
     listHabits.appendChild(li);
     li.addEventListener('click', () => {
+      const sumResults = document.querySelector('.sum');
       habitText.textContent = li.textContent;
       currentHabit = li.textContent;
-      calendarHabits.setCurrentHabit(li.textContent);
+      hiveMonths();
+
+      calendarHabits.setCurrentHabit(currentHabit);
+      sumResults.textContent = calendarHabits.getSumHabits()
+        ? calendarHabits.getSumHabits()
+        : '0';
+      if (
+        calendarHabits.getIndexCurrentHabit()
+        === calendarHabits.getHabits().length - 1
+      ) {
+        calendarHabits.renderCalendar();
+      } else {
+        showMonths();
+      }
     });
   });
 }
