@@ -14,7 +14,6 @@ const calendarHabits = new CalendarHabits(currentHabit, habits);
 const buttonAddHabit = document.querySelector('.addHabit form').children[1];
 const buttonRemoveHabit = document.querySelector('.deleteHabit button');
 const habitText = document.querySelector('main h1');
-const habitStatus = document.querySelectorAll('.listDays li span');
 const monthsHolder = document.querySelector('.monthsHolder');
 const leftArrow = document.querySelector('.fa-arrow-left');
 const rightArrow = document.querySelector('.fa-arrow-right');
@@ -29,7 +28,14 @@ function changeValueSum() {
   let sumMonthValue = 0;
 
   resultMonthElems.forEach((item) => {
-    sumMonthValue += Number(item.textContent.split('/')[0]);
+    const itemParent = item.parentNode.parentNode.parentNode;
+    const parentDisplayValue = getComputedStyle(itemParent).getPropertyValue(
+      'display',
+    );
+
+    if (parentDisplayValue === 'block') {
+      sumMonthValue += Number(item.textContent.split('/')[0]);
+    }
   });
 
   calendarHabits.setSumHabits(sumMonthValue);
@@ -54,25 +60,39 @@ function changeValueMonth(elem, operation) {
   changeValueSum();
 }
 
-habitStatus.forEach((elem) => {
-  elem.addEventListener('click', () => {
-    if (!elem.classList.contains('done')) {
-      elem.classList.remove('notDone');
-      elem.classList.add('done');
+function changeStatus(elem) {
+  if (!elem.classList.contains('done')) {
+    elem.classList.remove('notDone');
+    elem.classList.add('done');
 
-      changeValueMonth(elem, 'inc');
-    } else if (!elem.classList.contains('notDone')) {
-      elem.classList.remove('done');
-      elem.classList.add('notDone');
+    changeValueMonth(elem, 'inc');
+  } else if (!elem.classList.contains('notDone')) {
+    elem.classList.remove('done');
+    elem.classList.add('notDone');
 
-      changeValueMonth(elem, 'decr');
-    }
+    changeValueMonth(elem, 'decr');
+  }
+}
+
+function addEvent() {
+  const habitStatus = document.querySelectorAll('.listDays li span');
+
+  habitStatus.forEach((elem) => {
+    elem.removeEventListener('click', () => {
+      changeStatus(elem);
+    });
   });
-});
+
+  habitStatus.forEach((elem) => {
+    elem.addEventListener('click', () => {
+      changeStatus(elem);
+    });
+  });
+}
 
 // hide previous habit months
 
-function hiveMonths() {
+function hideMonths() {
   const firstWordCurrentHabit = calendarHabits.getCurrentHabit().split(' ')[0];
   const months = document.querySelectorAll(
     `.${firstWordCurrentHabit}${calendarHabits.getIndexCurrentHabit()}`,
@@ -104,24 +124,26 @@ function renderListHabits() {
     const li = document.createElement('li');
     li.textContent = elem;
     listHabits.appendChild(li);
+
     li.addEventListener('click', () => {
+      const months = document.querySelectorAll('.monthsHolder div');
       const sumResults = document.querySelector('.sum');
       habitText.textContent = li.textContent;
       currentHabit = li.textContent;
-      hiveMonths();
+      hideMonths();
 
       calendarHabits.setCurrentHabit(currentHabit);
       sumResults.textContent = calendarHabits.getSumHabits()
         ? calendarHabits.getSumHabits()
         : '0';
-      if (
-        calendarHabits.getIndexCurrentHabit()
-        === calendarHabits.getHabits().length - 1
-      ) {
+
+      // 36 because one habit create 36 divs
+      if (36 * calendarHabits.getHabits().length > months.length) {
         calendarHabits.renderCalendar();
       } else {
         showMonths();
       }
+      addEvent();
     });
   });
 }
@@ -131,6 +153,7 @@ buttonAddHabit.addEventListener('click', (e) => {
   const newHabit = addHabit(e);
 
   if (newHabit !== false) habits.push(newHabit);
+  calendarHabits.pushNewSumHabits();
 
   renderListHabits();
 });
@@ -140,7 +163,6 @@ buttonRemoveHabit.addEventListener('click', () => {
 
   currentHabit = newCurrentHabit;
   habitText.textContent = currentHabit;
-
   renderListHabits();
 });
 
@@ -157,6 +179,7 @@ leftArrow.addEventListener('click', () => {
   else arrowFlag = mobileSlideLeft(arrowFlag);
 });
 
+addEvent();
 initNav();
 renderListHabits();
 habitText.textContent = currentHabit;

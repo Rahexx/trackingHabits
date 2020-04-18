@@ -37,7 +37,7 @@ class CalendarHabits {
     return this.habits.indexOf(this.getCurrentHabit());
   }
 
-  // update array value  sumResultHabits
+  // update array current value  sumResultHabits
   setSumHabits(sum) {
     const indexHabit = this.habits.indexOf(this.getCurrentHabit());
     if (indexHabit > -1) this.sumResultHabits[indexHabit] = sum;
@@ -48,17 +48,24 @@ class CalendarHabits {
     return this.sumResultHabits[indexHabit];
   }
 
+  pushNewSumHabits() {
+    this.sumResultHabits.push(0);
+  }
+
   setMonthsValues(value, month) {
     const indexHabit = this.habits.indexOf(this.getCurrentHabit());
     const indexMonth = this.months.indexOf(month);
     if (indexHabit > -1 && indexMonth > -1) this.monthsResult[indexHabit][indexMonth] = value;
   }
 
-  renderDay() {
+  renderDay(month) {
+    const date = new Date();
+    const currentYear = date.getFullYear();
+    const numberDaysMonth = new Date(currentYear, month, 0).getDate();
     this.textDays = '';
 
-    for (let j = 1; j < 32; j++) {
-      this.textDays += `<li>Dzień miesiąca ${j} <span></span></li>`;
+    for (let j = 0; j < numberDaysMonth; j++) {
+      this.textDays += `<li>Dzień miesiąca ${j + 1} <span></span></li>`;
     }
 
     return this.textDays;
@@ -69,7 +76,7 @@ class CalendarHabits {
     if (this.currentHabits === '') calendar.innerHTML = '';
     else {
       for (let i = 0; i < 12; i++) {
-        const days = this.renderDay();
+        const days = this.renderDay(i + 1);
         const div = document.createElement('div');
         const firstWord = this.getCurrentHabit().split(' ')[0];
         div.classList.add(`${firstWord}${this.getIndexCurrentHabit()}`);
