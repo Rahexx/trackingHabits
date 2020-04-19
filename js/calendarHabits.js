@@ -1,7 +1,7 @@
 class CalendarHabits {
-  constructor(habitsName, habits) {
-    this.habits = habits;
-    this.currentHabits = habitsName;
+  constructor() {
+    this.habits = ['Przestać palić'];
+    [this.currentHabits] = this.habits;
     this.months = [
       'Styczeń',
       'Luty',
@@ -38,6 +38,10 @@ class CalendarHabits {
     this.sumResultHabits.splice(index, 1);
   }
 
+  pushHabits(newHabit) {
+    this.habits.push(newHabit);
+  }
+
   getIndexCurrentHabit() {
     return this.habits.indexOf(this.getCurrentHabit());
   }
@@ -60,8 +64,7 @@ class CalendarHabits {
   setMonthsValues(value, month) {
     const indexHabit = this.habits.indexOf(this.getCurrentHabit());
     const indexMonth = this.months.indexOf(month);
-    if (indexHabit > -1 && indexMonth > -1)
-      this.monthsResult[indexHabit][indexMonth] = value;
+    if (indexHabit > -1 && indexMonth > -1) this.monthsResult[indexHabit][indexMonth] = value;
   }
 
   renderDay(month) {

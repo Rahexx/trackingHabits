@@ -141,4 +141,6 @@ function initNav() {
   document.body.appendChild(div);
 }
 
-export { initNav, addHabit, removeCurrentHabit, validateNewHabit };
+export {
+  initNav, addHabit, removeCurrentHabit, validateNewHabit,
+};

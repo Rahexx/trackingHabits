@@ -7,10 +7,7 @@ import {
 } from './slideCalendar';
 import CalendarHabits from './calendarHabits';
 
-const habits = ['Przestać palić'];
-let currentHabit = habits[0];
-
-const calendarHabits = new CalendarHabits(currentHabit, habits);
+const calendarHabits = new CalendarHabits();
 const buttonAddHabit = document.querySelector('.addHabit form').children[1];
 const buttonRemoveHabit = document.querySelector('.deleteHabit button');
 const habitText = document.querySelector('main h1');
@@ -44,9 +41,8 @@ function changeValueSum() {
 
 function changeValueMonth(elem, operation) {
   const child = elem;
-  const currentMonthResult =
-    child.parentNode.parentNode.parentNode.previousSibling.previousSibling
-      .children[0];
+  const currentMonthResult = child.parentNode.parentNode.parentNode.previousSibling.previousSibling
+    .children[0];
   const textmonthResult = currentMonthResult.textContent.split('/');
   let resultMonth = 0;
 
@@ -121,7 +117,7 @@ function showMonths() {
 function renderListHabits() {
   listHabits.innerHTML = '';
 
-  habits.forEach((elem) => {
+  calendarHabits.habits.forEach((elem) => {
     const li = document.createElement('li');
     li.textContent = elem;
     listHabits.appendChild(li);
@@ -130,16 +126,15 @@ function renderListHabits() {
       const months = document.querySelectorAll('.monthsHolder div');
       const sumResults = document.querySelector('.sum');
       habitText.textContent = li.textContent;
-      currentHabit = li.textContent;
 
       if (months.length > 0) {
         hideMonths();
-        calendarHabits.setCurrentHabit(currentHabit);
+        calendarHabits.setCurrentHabit(li.textContent);
         sumResults.textContent = calendarHabits.getSumHabits()
           ? calendarHabits.getSumHabits()
           : '0';
       } else {
-        calendarHabits.setCurrentHabit(currentHabit);
+        calendarHabits.setCurrentHabit(li.textContent);
         sumResults.textContent = calendarHabits.getSumHabits()
           ? calendarHabits.getSumHabits()
           : '0';
@@ -161,8 +156,10 @@ function renderListHabits() {
 buttonAddHabit.addEventListener('click', (e) => {
   const newHabit = addHabit(e);
 
-  if (newHabit !== false) habits.push(newHabit);
-  calendarHabits.pushNewSumHabits();
+  if (newHabit !== false) {
+    calendarHabits.pushHabits(newHabit);
+    calendarHabits.pushNewSumHabits();
+  }
 
   renderListHabits();
 });
@@ -170,11 +167,12 @@ buttonAddHabit.addEventListener('click', (e) => {
 buttonRemoveHabit.addEventListener('click', () => {
   const sumResults = document.querySelector('.sum');
   sumResults.textContent = '0';
-  const habitRemove = currentHabit;
-  const newCurrentHabit = removeCurrentHabit(currentHabit, calendarHabits);
+  const newCurrentHabit = removeCurrentHabit(
+    calendarHabits.getCurrentHabit(),
+    calendarHabits,
+  );
 
-  currentHabit = newCurrentHabit;
-  calendarHabits.setCurrentHabit(currentHabit);
+  calendarHabits.setCurrentHabit(newCurrentHabit);
   habitText.textContent = calendarHabits.getCurrentHabit();
 
   if (calendarHabits.habits.length > 0) {
@@ -211,4 +209,4 @@ leftArrow.addEventListener('click', () => {
 addEvent();
 initNav();
 renderListHabits();
-habitText.textContent = currentHabit;
+habitText.textContent = calendarHabits.getCurrentHabit();
