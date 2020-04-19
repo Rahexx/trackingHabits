@@ -33,6 +33,11 @@ class CalendarHabits {
     return this.habits;
   }
 
+  deleteHabits(index) {
+    this.habits.splice(index, 1);
+    this.sumResultHabits.splice(index, 1);
+  }
+
   getIndexCurrentHabit() {
     return this.habits.indexOf(this.getCurrentHabit());
   }
@@ -55,7 +60,8 @@ class CalendarHabits {
   setMonthsValues(value, month) {
     const indexHabit = this.habits.indexOf(this.getCurrentHabit());
     const indexMonth = this.months.indexOf(month);
-    if (indexHabit > -1 && indexMonth > -1) this.monthsResult[indexHabit][indexMonth] = value;
+    if (indexHabit > -1 && indexMonth > -1)
+      this.monthsResult[indexHabit][indexMonth] = value;
   }
 
   renderDay(month) {

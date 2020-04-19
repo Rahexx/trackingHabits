@@ -44,8 +44,9 @@ function changeValueSum() {
 
 function changeValueMonth(elem, operation) {
   const child = elem;
-  const currentMonthResult = child.parentNode.parentNode.parentNode.previousSibling.previousSibling
-    .children[0];
+  const currentMonthResult =
+    child.parentNode.parentNode.parentNode.previousSibling.previousSibling
+      .children[0];
   const textmonthResult = currentMonthResult.textContent.split('/');
   let resultMonth = 0;
 
@@ -130,12 +131,20 @@ function renderListHabits() {
       const sumResults = document.querySelector('.sum');
       habitText.textContent = li.textContent;
       currentHabit = li.textContent;
-      hideMonths();
 
-      calendarHabits.setCurrentHabit(currentHabit);
-      sumResults.textContent = calendarHabits.getSumHabits()
-        ? calendarHabits.getSumHabits()
-        : '0';
+      if (months.length > 0) {
+        hideMonths();
+        calendarHabits.setCurrentHabit(currentHabit);
+        sumResults.textContent = calendarHabits.getSumHabits()
+          ? calendarHabits.getSumHabits()
+          : '0';
+      } else {
+        calendarHabits.setCurrentHabit(currentHabit);
+        sumResults.textContent = calendarHabits.getSumHabits()
+          ? calendarHabits.getSumHabits()
+          : '0';
+        hideMonths();
+      }
 
       // 36 because one habit create 36 divs
       if (36 * calendarHabits.getHabits().length > months.length) {
@@ -159,10 +168,30 @@ buttonAddHabit.addEventListener('click', (e) => {
 });
 
 buttonRemoveHabit.addEventListener('click', () => {
-  const newCurrentHabit = removeCurrentHabit(habits, currentHabit);
+  const sumResults = document.querySelector('.sum');
+  sumResults.textContent = '0';
+  const habitRemove = currentHabit;
+  const newCurrentHabit = removeCurrentHabit(currentHabit, calendarHabits);
 
   currentHabit = newCurrentHabit;
-  habitText.textContent = currentHabit;
+  calendarHabits.setCurrentHabit(currentHabit);
+  habitText.textContent = calendarHabits.getCurrentHabit();
+
+  if (calendarHabits.habits.length > 0) {
+    const indexHabit = calendarHabits.habits.indexOf(
+      calendarHabits.getCurrentHabit(),
+    );
+    const currentHabitDiv = document.querySelectorAll(
+      `.${calendarHabits.getCurrentHabit().split(' ')[0]}${indexHabit}`,
+    );
+
+    if (currentHabitDiv.length === 0) {
+      calendarHabits.renderCalendar();
+    } else {
+      showMonths();
+    }
+  }
+
   renderListHabits();
 });
 

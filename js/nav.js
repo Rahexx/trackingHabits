@@ -31,16 +31,48 @@ function addHabit(e) {
   return newHabit;
 }
 
-function removeCurrentHabit(habits, currentHabit) {
-  if (habits.includes(currentHabit)) {
-    const indexHabit = habits.indexOf(currentHabit);
-    habits.splice(indexHabit, 1);
+function deleteDiv(indexHabit, calendar) {
+  const classDiv = `${calendar.getCurrentHabit().split(' ')[0]}${indexHabit}`;
+  const habtitDiv = document.querySelectorAll(`.${classDiv}`);
+  const monthsHolder = document.querySelector('.monthsHolder');
+
+  habtitDiv.forEach((elem) => {
+    monthsHolder.removeChild(elem);
+  });
+}
+
+// change class div firstWordIndex for new firstWordNewIndex
+function changeClass(index, calendar) {
+  const listHabits = calendar.habits;
+  for (let i = index; i < listHabits.length; i++) {
+    const classDiv = `${listHabits[i].split(' ')[0]}${i + 1}`;
+    const habtitDiv = document.querySelectorAll(`.${classDiv}`);
+
+    habtitDiv.forEach((elem) => {
+      elem.classList.remove(classDiv);
+      elem.classList.add(`${listHabits[i].split(' ')[0]}${i}`);
+    });
+  }
+}
+
+function removeCurrentHabit(currentHabit, calendar) {
+  const indexHabit = calendar.habits.indexOf(currentHabit);
+  const lengthHabit = calendar.habits.length;
+
+  if (indexHabit > -1) {
+    deleteDiv(indexHabit, calendar);
+    calendar.deleteHabits(indexHabit);
+    changeClass(indexHabit, calendar);
   }
 
   popUpDelete.style.display = 'none';
   div.style.width = '0';
 
-  return habits.length > 0 ? habits[0] : '';
+  if (indexHabit === lengthHabit - 1) {
+    return calendar.habits.length > 0 ? calendar.habits[indexHabit - 1] : '';
+  }
+
+  return calendar.habits.length > 0 ? calendar.habits[indexHabit] : '';
 }
 
 function addStyle(element) {
@@ -109,6 +141,4 @@ function initNav() {
   document.body.appendChild(div);
 }
 
-export {
-  initNav, addHabit, removeCurrentHabit, validateNewHabit,
-};
+export { initNav, addHabit, removeCurrentHabit, validateNewHabit };
